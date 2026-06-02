@@ -1,0 +1,16 @@
+name: programming
+version: "1.0.0"
+domain: software_engineering
+description: "默认编程领域协作模板包（主脑调度 + 成员执行 + 审核放行）"
+roles:
+  - architect
+  - senior
+  - mid
+  - junior
+  - devops
+defaults:
+  review_role: architect
+  escalation_fallback: human
+notes:
+  - "本模板包仅覆盖编程领域，不包含其他行业模板。"
+  - "要切换模板包，请设置环境变量 OPENCLAW_SKILL_PACK=<pack_name>。"

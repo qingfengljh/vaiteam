@@ -1,0 +1,32 @@
+FROM python:3.12-slim
+
+ENV TZ=Asia/Shanghai
+ARG APT_MIRROR=mirrors.aliyun.com
+ARG INSTALL_LIBREOFFICE=1
+RUN set -eux; \
+    mir="${APT_MIRROR:-mirrors.aliyun.com}"; \
+    [ -n "$mir" ] || mir=mirrors.aliyun.com; \
+    . /etc/os-release; \
+    codename="${VERSION_CODENAME:?}"; \
+    if [ -d /etc/apt/sources.list.d ]; then \
+      mkdir -p /etc/apt/sources.list.d/disabled-vaiteam; \
+      for f in /etc/apt/sources.list.d/*.sources /etc/apt/sources.list.d/*.list; do \
+        [ -f "$f" ] || continue; \
+        mv "$f" /etc/apt/sources.list.d/disabled-vaiteam/; \
+      done; \
+    fi; \
+    { \
+      echo "deb https://${mir}/debian ${codename} main"; \
+      echo "deb https://${mir}/debian ${codename}-updates main"; \
+      echo "deb https://${mir}/debian-security ${codename}-security main"; \
+    } > /etc/apt/sources.list; \
+    apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates curl git unrar-free docker.io openssh-client rsync bash \
+    && if [ "${INSTALL_LIBREOFFICE}" = "1" ]; then apt-get install -y --no-install-recommends libreoffice-core libreoffice-writer libreoffice-calc libreoffice-impress; fi \
+    && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
+    && echo $TZ > /etc/timezone \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+CMD ["bash", "/app/scripts/dev-entrypoint.sh"]

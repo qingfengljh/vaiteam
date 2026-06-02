@@ -1,0 +1,12 @@
+{
+  "task_pack_version": 1,
+  "ref_id": "DEMO-CC-PACK",
+  "title": "样例：宪章与执行提示对齐",
+  "instruction": "在本仓库仅阅读 CLAUDE.md 与 docs/AI_TEAM_MEMBER_CHARTER.md，不要改代码；向 stdout 打印一行 OK 后退出。",
+  "branch": "task/DEMO-CC-PACK",
+  "git_base_branch": "develop",
+  "executor_hint": "claude_code",
+  "actor_type": "claude_code",
+  "context_keys": ["CLAUDE.md", "docs/AI_TEAM_MEMBER_CHARTER.md"],
+  "acceptance": ["进程 exit 0", "stdout 含 OK"]
+}

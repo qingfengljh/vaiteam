@@ -1,0 +1,64 @@
+# 环境配置
+.env
+*.env.local
+# 发版脚本本地密钥（勿提交）
+scripts/package-publish.env
+scripts/package-publish.version
+scripts/package-publish.dispatcher.version
+scripts/package-publish.install-agent.version
+openclaw.json
+config/*
+!config/.gitkeep
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Node
+node_modules/
+dist/
+
+# IDE
+.idea/
+.vscode/
+
+# Claude Code 个人项目记忆（勿提交）
+CLAUDE.local.md
+
+# CC worker 本地运行日志（dispatcher/tools/cc-worker/run_task_pack.py）
+.cc-worker-logs/
+*.swp
+*.swo
+.DS_Store
+
+# Compose 宿主机绑定数据（根目录 docker-compose*.yml；勿提交）
+/data/postgres/
+/data/redis/
+/data/projects/
+/data/dispatcher/
+/data/web/
+/data/agent-workspaces/
+# deploy/docker-compose.yml
+deploy/data/
+pgdata/
+
+# dispatcher package.sh 本地 SemVer 自增基准（可选提交以统一 CI/多人计数）
+.vaiteam-dispatcher-package-version
+
+# 备份文件
+backups/
+
+# 日志
+*.log
+
+# 安装代理 Docker 本地环境（勿提交）
+# install-agent/docker.env 为客户端交付默认环境，与 docker.env.example 同步提交（非服务器密钥）
+
+# SaaS 打包产物（package.sh / build.sh，勿提交）
+saas/saas-deploy-dist.tar.gz
+saas/saas-deploy-dist.sha1
+saas/portal-api/portal-api-dist.tar.gz
+saas/portal-web/portal-web-dist.tar.gz
